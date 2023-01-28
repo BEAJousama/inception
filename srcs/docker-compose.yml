@@ -1,0 +1,122 @@
+version : "2"
+services:
+  mariadb:
+    hostname: mariadb
+    image: mariadb:v1.0
+    build: requirements/mariadb
+    volumes:
+      - db:/var/lib/mysql
+    environment:      
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_ADMIN: ${MYSQL_ADMIN}
+      MYSQL_ADMIN_PASS: ${MYSQL_ADMIN_PASS}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    restart: always
+    networks:
+      nginx-network:
+  wordpress:
+    hostname: wordpress
+    image: wordpress:php7.3-fpm-debian
+    build: requirements/wordpress-php
+    restart: always
+    volumes:
+      - wp:/wordpress
+    depends_on:
+      - mariadb
+    environment:      
+      WORDPRESS_DB_HOST: ${WORDPRESS_DB_HOST}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      WORDPRESS_DB_NAME: ${WORDPRESS_DB_NAME}
+      WORDPRESS_DB_USER: ${WORDPRESS_DB_USER}
+      WORDPRESS_DB_PASSWORD: ${WORDPRESS_DB_PASSWORD}
+      WORDPRESS_TABLE_PREFIX: ${WORDPRESS_TABLE_PREFIX}
+      REDIS_HOST: ${REDIS_HOST}
+      REDIS_PORT: ${REDIS_PORT}
+      WORDPRESS_EMAIL: ${WORDPRESS_EMAIL}
+      WORDPRESS_DOMAIN: ${WORDPRESS_DOMAIN}
+      WORDPRESS_TITLE: ${WORDPRESS_TITLE}
+    networks:
+      nginx-network:
+  nginx:
+    hostname: nginx
+    image: nginx:v1.0
+    build: requirements/nginx
+    restart: always
+    ports: 
+      - "443:443"
+    volumes:
+      - wp:/var/www/html
+    depends_on:
+      - wordpress
+    networks:
+      nginx-network:
+  redis:
+    hostname: redis
+    image: redis:v1.0
+    build: requirements/bonus/redis
+    restart: always
+    depends_on:
+      - wordpress
+    networks:
+      nginx-network:
+  ftp:
+    hostname: ftp
+    image: ftp:v1.0
+    build: requirements/bonus/ftp
+    restart: always
+    ports: 
+      - "21:21"
+      - "20:20"
+    depends_on:
+      - wordpress
+    volumes:
+      - wp:/var/ftp/pub
+    networks:
+      nginx-network:
+  adminer:
+    hostname: adminer
+    image: adminer:v1.0
+    build: requirements/bonus/adminer
+    restart: always
+    ports:
+      - "8082:8082"
+    networks:
+      nginx-network:
+  website:
+    hostname: website
+    image: website:v1.0
+    build: requirements/bonus/website
+    restart: always
+    ports:
+      - "3000:3000"
+    networks:
+      nginx-network:
+  redis-commander:
+    hostname: redis-commander
+    image: redis-commander:v1.0
+    build: requirements/bonus/redis-commander
+    restart: always
+    ports:
+      - "8081:8081"
+    environment:
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+    networks:
+      nginx-network:
+networks:
+  nginx-network:
+volumes:
+  db:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /home/obeaj/data/mariadb
+  wp:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /home/obeaj/data/wordpress

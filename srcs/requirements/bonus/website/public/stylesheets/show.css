@@ -1,0 +1,140 @@
+body {
+    font-family: 'Comfortaa', sans-serif;
+    background: #fff;
+}
+.red-divider {
+    width: 100px;
+    height: 2px;
+    background: #f26262;
+    margin: 0 auto 20px;
+}
+
+.white-divider {
+    width: 100px;
+    height: 2px;
+    background: #fff;
+    margin: 0 auto 20px;
+}
+#services {
+    background: #f26262;
+    height: auto;
+    padding-bottom: 30px;
+}
+#inception {
+    filter:blur(100);
+    height: auto;
+    width: auto;
+    background-size: 100% 100%;
+    background: rgb(255, 255, 255);
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+#services .heading h2 {
+    color: #fff;
+}
+#inception .heading h2 {
+    color: #003;
+}
+
+#services .img-fluid {
+    width: auto;
+    height: 100%;
+    filter: grayscale(100%);
+    -webkit-filter: grayscale(100%);
+}
+
+#services .img-fluid:hover {
+    filter: none;
+    -webkit-filter: none;
+}
+
+#services .col-md-4 {
+    margin-bottom: 20px;
+}
+
+#contact .heading h2 {
+    color: #f26262;
+}
+
+li {
+    list-style: none;
+}
+
+.jumbotron {
+    background: url("../img/blog-background.png") no-repeat center;
+    width: 90%;
+    height: 300px;
+}
+
+.blue-divider {
+    width: 100px;
+    height: 2px;
+    background: rgb(65, 65, 65);
+    margin: 0px auto;
+    margin-bottom: 50px;
+}
+
+.del-form {
+    display: inline;
+}
+
+.btn {
+    margin: 10px;
+    text-align: center;
+}
+
+.page-holder {
+    min-height: 100vh;
+}
+
+.bg-cover {
+    background-size: cover !important;
+}
+
+.white-divider {
+    width: 100px;
+    height: 2px;
+    background: #fff;
+    margin: 0 auto 20px;
+}
+
+.heading {
+    text-align: center;
+    text-transform: uppercase;
+    color: #333;
+    text-align: center;
+    margin: auto auto;
+    padding: 40px
+}
+
+.del-upd-form {
+    display: inline;
+}
+
+#commentcontainer {
+    max-width: 400px;
+    overflow: -moz-hidden-unscrollable;
+}
+
+img {
+    width: 80%;
+    height: 100%;
+    object-fit: cover;
+    object-position: bottom;
+    margin: 25px auto;
+    display: block;
+}
+
+.rounded-circle {
+    width: 50px;
+    height: 50px;
+}
+
+.border-2 {
+    border-width: 2px !important;
+}
+
+li a {
+    margin-left: 50px;
+}
