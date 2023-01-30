@@ -107,6 +107,20 @@ services:
       - REDIS_PORT=6379
     networks:
       nginx-network:
+  cadvisor:
+    hostname: cadvisor
+    image: cadvisor:v1.0
+    build: requirements/bonus/cadvisor
+    restart: always
+    ports:
+      - "8080:8080"
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:rw
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro 
+    networks:
+      nginx-network:
 networks:
   nginx-network:
 volumes:
