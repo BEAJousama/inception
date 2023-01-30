@@ -13,7 +13,7 @@ services:
       MYSQL_ADMIN: ${MYSQL_ADMIN}
       MYSQL_ADMIN_PASS: ${MYSQL_ADMIN_PASS}
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
-    restart: always
+    restart: on-failure
     networks:
       nginx-network:
     ports:
@@ -21,8 +21,8 @@ services:
   wordpress:
     hostname: wordpress
     image: wordpress:php7.3-fpm-debian
-    build: requirements/wordpress-php
-    restart: always
+    build: requirements/wordpress
+    restart: on-failure
     volumes:
       - wp:/wordpress
     depends_on:
@@ -45,7 +45,7 @@ services:
     hostname: nginx
     image: nginx:v1.0
     build: requirements/nginx
-    restart: always
+    restart: on-failure
     ports: 
       - "443:443"
     volumes:
@@ -58,7 +58,7 @@ services:
     hostname: redis
     image: redis:v1.0
     build: requirements/bonus/redis
-    restart: always
+    restart: on-failure
     depends_on:
       - wordpress
     networks:
@@ -67,7 +67,7 @@ services:
     hostname: ftp
     image: ftp:v1.0
     build: requirements/bonus/ftp
-    restart: always
+    restart: on-failure
     ports: 
       - "21:21"
       - "20:20"
@@ -81,7 +81,7 @@ services:
     hostname: adminer
     image: adminer:v1.0
     build: requirements/bonus/adminer
-    restart: always
+    restart: on-failure
     ports:
       - "8082:8082"
     networks:
@@ -90,7 +90,7 @@ services:
     hostname: website
     image: website:v1.0
     build: requirements/bonus/website
-    restart: always
+    restart: on-failure
     ports:
       - "3000:3000"
     networks:
@@ -99,7 +99,7 @@ services:
     hostname: redis-commander
     image: redis-commander:v1.0
     build: requirements/bonus/redis-commander
-    restart: always
+    restart: on-failure
     ports:
       - "8081:8081"
     environment:
@@ -111,7 +111,7 @@ services:
     hostname: cadvisor
     image: cadvisor:v1.0
     build: requirements/bonus/cadvisor
-    restart: always
+    restart: on-failure
     ports:
       - "8080:8080"
     volumes:

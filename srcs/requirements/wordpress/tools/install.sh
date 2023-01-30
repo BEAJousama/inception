@@ -7,6 +7,6 @@ runuser -u www-data -- wp-cli core install --url=$WORDPRESS_DOMAIN --title=$WORD
 runuser -u www-data -- wp-cli plugin install redis-cache --activate --path='/wordpress'
 runuser -u www-data -- wp-cli plugin update --all --path='/wordpress'
 runuser -u www-data -- wp-cli redis enable --path='/wordpress'
-runuser -u www-data -- wp user create $WORDPRESS_DB_USER $WORDPRESS_EMAIL --role=author --user_pass=$WORDPRESS_DB_PASSWORD --path='/var/www/html/'
+runuser -u www-data -- wp user create $WORDPRESS_DB_USER $WORDPRESS_EMAIL --role=author --user_pass=$WORDPRESS_DB_PASSWORD --path='/wordpress'
 runuser -u www-data -- wp-cli theme install twentyseventeen --activate
 /usr/sbin/php-fpm7.3 -F -R

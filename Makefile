@@ -1,11 +1,11 @@
 all:
-	@cd ./srcs && sudo docker-compose up -d --build 
+	@cd ./srcs &&  docker-compose up -d --build 
 
 down:
-	@cd ./srcs && sudo docker-compose down
+	@cd ./srcs &&  docker-compose down
 
 re:
-	@cd ./srcs && sudo docker-compose up -d --build
+	@cd ./srcs &&  docker-compose up -d --build
 
 clean:
 	@docker stop $$(docker ps -qa);\
@@ -15,6 +15,6 @@ clean:
 	docker network rm $$(docker network ls -q);\
 
 prune:
-	@docker system prune -a
+	@ docker system prune -a
 
 .PHONY: all re down clean prune
