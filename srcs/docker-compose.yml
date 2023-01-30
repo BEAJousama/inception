@@ -16,6 +16,8 @@ services:
     restart: always
     networks:
       nginx-network:
+    ports:
+      - "3306:3306"
   wordpress:
     hostname: wordpress
     image: wordpress:php7.3-fpm-debian

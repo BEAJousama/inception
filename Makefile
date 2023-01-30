@@ -1,11 +1,11 @@
 all:
-	@docker-compose -f ./srcs/docker-compose.yml up -d --build 
+	@cd ./srcs && sudo docker-compose up -d --build 
 
 down:
-	@docker-compose -f ./srcs/docker-compose.yml down
+	@cd ./srcs && sudo docker-compose down
 
 re:
-	@docker-compose -f srcs/docker-compose.yml up -d --build
+	@cd ./srcs && sudo docker-compose up -d --build
 
 clean:
 	@docker stop $$(docker ps -qa);\
@@ -17,4 +17,4 @@ clean:
 prune:
 	@docker system prune -a
 
-.PHONY: all re down clean
+.PHONY: all re down clean prune
