@@ -68,13 +68,16 @@ services:
     image: ftp:v1.0
     build: requirements/bonus/ftp
     restart: on-failure
+    environment:      
+      FTPUSER: ${FTPUSER}
+      FTPPASS: ${FTPPASS}
     ports: 
       - "21:21"
       - "20:20"
     depends_on:
       - wordpress
     volumes:
-      - wp:/var/ftp/pub
+      - wp:/home/ftpuser/ftp/files
     networks:
       nginx-network:
   adminer:

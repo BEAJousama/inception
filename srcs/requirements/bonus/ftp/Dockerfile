@@ -1,6 +1,6 @@
 FROM debian:buster
-RUN apt-get update && apt-get install vsftpd -y
-RUN mkdir -p /var/ftp/pub
-RUN mkdir -p /var/run/vsftpd/empty
-COPY config/vsftpd.conf /etc/vsftpd.conf
-CMD /usr/sbin/vsftpd /etc/vsftpd.conf
+RUN apt-get update && apt-get install -y vsftpd
+COPY ./tools/startup.sh /tmp/startup.sh
+RUN chmod +x /tmp/startup.sh
+EXPOSE 21
+ENTRYPOINT ["sh","/tmp/startup.sh" ]
