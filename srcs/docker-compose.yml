@@ -16,8 +16,6 @@ services:
     restart: on-failure
     networks:
       nginx-network:
-    ports:
-      - "3306:3306"
   wordpress:
     hostname: wordpress
     image: wordpress:php7.3-fpm-debian
@@ -73,7 +71,6 @@ services:
       FTPPASS: ${FTPPASS}
     ports: 
       - "21:21"
-      - "20:20"
     depends_on:
       - wordpress
     volumes:
@@ -87,6 +84,8 @@ services:
     restart: on-failure
     ports:
       - "8082:8082"
+    depends_on:
+      - mariadb
     networks:
       nginx-network:
   website:

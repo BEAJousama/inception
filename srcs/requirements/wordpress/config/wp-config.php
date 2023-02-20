@@ -44,6 +44,7 @@ define( 'WP_HOME',    'https://' . $_SERVER['HTTP_HOST'] );
 
 define('NONCE_SALT', getenv_docker('WORDPRESS_NONCE_SALT','123456789'));
 
+
 define('WP_CACHE_KEY_SALT', getenv_docker('WORDPRESS_CACHE_KEY_SALT','123456789'));
 define('WP_CACHE', true);
 define('WP_REDIS_HOST', 'redis');

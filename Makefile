@@ -1,5 +1,6 @@
 all:
-	@cd ./srcs &&  docker-compose up -d --build 
+	@bash ./srcs/requirements/tools/init-data-dir.sh;\
+	cd ./srcs &&  docker-compose up -d --build 
 
 down:
 	@cd ./srcs &&  docker-compose down
