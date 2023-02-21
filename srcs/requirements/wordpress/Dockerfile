@@ -7,9 +7,10 @@ RUN apt-get update && apt-get install wget php-fpm php-mysql curl -y;\
     chown -R www-data:www-data /wordpress ;\
     mkdir -p /run/php/ ;\
     chown -R www-data:www-data /wordpress
+RUN mkdir -p /home/www-data && chown -R www-data:www-data /home/www-data
 COPY config/www.conf /etc/php/7.3/fpm/pool.d/
 COPY config/wp-config.php /wordpress/wp-config.php
 COPY tools/install.sh /tmp/install.sh
 EXPOSE 9000
 RUN chmod +x /tmp/install.sh
-ENTRYPOINT ["/tmp/install.sh"]
+CMD ["/tmp/install.sh"]

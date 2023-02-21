@@ -6,4 +6,4 @@ COPY ./conf/50-server.cnf /etc/mysql/mariadb.conf.d/
 COPY ./tools /var/www/
 RUN chmod +x /var/www/script.sh
 EXPOSE 3306
-ENTRYPOINT sh /var/www/script.sh
+CMD sh /var/www/script.sh

@@ -8,14 +8,15 @@ FILE=./srcs/docker-compose.yml
 all: $(NAME)
 
 $(NAME): data
-	$(DCOMPOSE) -f $(FILE) up -d --build
+	@cd ./srcs && \
+	$(DCOMPOSE) up -d --build
 
 data:
 	@mkdir -p $(WP)
 	@mkdir -p $(DB)
 
 wordpress:
-	$(DCOMPOSE) -f $(FILE) up -d --build --force-recreate --no-deps -d wordpress
+	$(DCOMPOSE) up -d --build --force-recreate --no-deps -d wordpress
 
 clean: down
 	@docker stop $$(docker ps -qa);\
@@ -23,23 +24,27 @@ clean: down
 	docker rmi -f $$(docker images -qa);\
 	docker volume rm $$(docker volume ls -q);\
 	docker network rm $$(docker network ls -q);\
-	sudo rm -rf $(WEBSITE);\
+	sudo rm -rf $(WP);\
 	sudo rm -rf $(DB)
 
 logs:
-	@$(DCOMPOSE) -f $(FILE) logs -f
+	@cd ./srcs && \
+	$(DCOMPOSE) logs -f
 
 ps:
 	@sudo docker ps
 
 up:
-	@$(DCOMPOSE) -f $(FILE) up -d
+	@cd ./srcs && \
+	$(DCOMPOSE) up -d
 
 down:
-	@$(DCOMPOSE) -f $(FILE) down
+	@cd ./srcs && \
+	$(DCOMPOSE) down
 
 fclean: clean
-	@docker system prune --volumes
+	@cd ./srcs && \
+	docker system prune --volumes
 
 re: down fclean all
 
