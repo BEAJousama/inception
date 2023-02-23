@@ -1,6 +1,7 @@
 NAME=inception
 WP=/home/obeaj/data/wordpress
 DB=/home/obeaj/data/mariadb
+ENVFILE=/home/obeaj/.env
 DCOMPOSE=sudo docker-compose
 FILE=./srcs/docker-compose.yml
 
@@ -12,11 +13,9 @@ $(NAME): data
 	$(DCOMPOSE) up -d --build
 
 data:
+	@cp $(ENVFILE) ./srcs/
 	@mkdir -p $(WP)
 	@mkdir -p $(DB)
-
-wordpress:
-	$(DCOMPOSE) up -d --build --force-recreate --no-deps -d wordpress
 
 clean: down
 	@docker stop $$(docker ps -qa);\
